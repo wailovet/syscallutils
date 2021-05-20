@@ -12,12 +12,26 @@ func (g2c *Go2CBase) AnyPtr(d interface{}) uintptr {
 	return uintptr(unsafe.Pointer(&d))
 }
 
-func (g2c *Go2CBase) Float64Slice(d []float64) uintptr {
+func (g2c *Go2CBase) Uint8Slice(d []uint8) uintptr {
+	if d == nil {
+		return 0
+	}
 	ret := unsafe.Pointer(&d[0])
 	return uintptr(ret)
 }
 
-func (g2c *Go2CBase) Float32Slice(d []float64) uintptr {
+func (g2c *Go2CBase) Float64Slice(d []float64) uintptr {
+	if d == nil {
+		return 0
+	}
+	ret := unsafe.Pointer(&d[0])
+	return uintptr(ret)
+}
+
+func (g2c *Go2CBase) Float32Slice(d []float32) uintptr {
+	if d == nil {
+		return 0
+	}
 	ret := unsafe.Pointer(&d[0])
 	return uintptr(ret)
 }
