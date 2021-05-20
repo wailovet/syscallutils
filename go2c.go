@@ -6,8 +6,7 @@ import (
 
 var Go2C Go2CBase
 
-type Go2CBase struct {
-}
+type Go2CBase struct{}
 
 func (g2c *Go2CBase) AnyPtr(d interface{}) uintptr {
 	return uintptr(unsafe.Pointer(&d))
