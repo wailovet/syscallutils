@@ -30,7 +30,7 @@ func (c2g *C2GoBase) Float64Slice(p uintptr, len int) (ret []float64) {
 func (c2g *C2GoBase) Float32Slice(p uintptr, len int) (ret []float32) {
 	for i := 0; i < len; i++ {
 		ret = append(ret, *((*float32)(unsafe.Pointer(p))))
-		p += unsafe.Sizeof(float64(0))
+		p += unsafe.Sizeof(float32(0))
 	}
 	return ret
 }
@@ -50,6 +50,36 @@ func (c2g *C2GoBase) Bytes4Void(p uintptr, len int) (d []byte) {
 	for i := 0; i < len; i++ {
 		d = append(d, *(*byte)(unsafe.Pointer(p)))
 		p += unsafe.Sizeof(byte(0)) // 移动指针，指向下一个char
+	}
+	return
+}
+
+func (c2g *C2GoBase) Uint8Slice(p uintptr, len int) (d []uint8) {
+	for i := 0; i < len; i++ {
+		d = append(d, *(*uint8)(unsafe.Pointer(p)))
+		p += unsafe.Sizeof(uint8(0)) // 移动指针，指向下一个char
+	}
+	return
+}
+func (c2g *C2GoBase) Uint16Slice(p uintptr, len int) (d []uint16) {
+	for i := 0; i < len; i++ {
+		d = append(d, *(*uint16)(unsafe.Pointer(p)))
+		p += unsafe.Sizeof(uint16(0)) // 移动指针，指向下一个char
+	}
+	return
+}
+func (c2g *C2GoBase) Uint32Slice(p uintptr, len int) (d []uint32) {
+	for i := 0; i < len; i++ {
+		d = append(d, *(*uint32)(unsafe.Pointer(p)))
+		p += unsafe.Sizeof(uint32(0)) // 移动指针，指向下一个char
+	}
+	return
+}
+
+func (c2g *C2GoBase) IntSlice(p uintptr, len int) (d []int) {
+	for i := 0; i < len; i++ {
+		d = append(d, *(*int)(unsafe.Pointer(p)))
+		p += unsafe.Sizeof(int(0)) // 移动指针，指向下一个char
 	}
 	return
 }

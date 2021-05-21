@@ -17,7 +17,7 @@ func (g2c *Go2CBase) Uint8Slice(d []uint8) uintptr {
 		return 0
 	}
 	ret := unsafe.Pointer(&d[0])
-	return uintptr(ret)
+	return uintptr(unsafe.Pointer(ret))
 }
 
 func (g2c *Go2CBase) Float64Slice(d []float64) uintptr {
