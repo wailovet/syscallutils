@@ -7,6 +7,10 @@ var C2Go C2GoBase
 type C2GoBase struct {
 }
 
+func (c2g *C2GoBase) Uint8(p uintptr) uint8 {
+	return uint8(p)
+}
+
 func (c2g *C2GoBase) Int(p uintptr) int {
 	return int(p)
 }
@@ -17,6 +21,15 @@ func (c2g *C2GoBase) Int32(p uintptr) int32 {
 
 func (c2g *C2GoBase) Int64(p uintptr) int64 {
 	return int64(p)
+}
+
+func (c2g *C2GoBase) Float32(p uintptr) float32 {
+	return float32(p)
+}
+
+func (c2g *C2GoBase) Float64(p uintptr) float64 {
+	return float64(p)
+	return *(*float64)(unsafe.Pointer(p))
 }
 
 func (c2g *C2GoBase) Float64Slice(p uintptr, len int) (ret []float64) {
