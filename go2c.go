@@ -1,7 +1,6 @@
 package syscallutils
 
 import (
-	"log"
 	"unsafe"
 )
 
@@ -75,6 +74,6 @@ func (g2c *Go2CBase) Uint8(d uint) uintptr {
 
 func (g2c *Go2CBase) Chars(d string) uintptr {
 	b := append([]byte(d), 0)
-	log.Println("Chars", b)
+	// log.Println("Chars", b)
 	return uintptr(unsafe.Pointer(&b[0]))
 }
