@@ -1,6 +1,7 @@
 package syscallutils
 
 import (
+	"log"
 	"unsafe"
 )
 
@@ -13,6 +14,14 @@ func (g2c *Go2CBase) AnyPtr(d interface{}) uintptr {
 }
 
 func (g2c *Go2CBase) Uint8Slice(d []uint8) uintptr {
+	if d == nil {
+		return 0
+	}
+	ret := unsafe.Pointer(&d[0])
+	return uintptr(unsafe.Pointer(ret))
+}
+
+func (g2c *Go2CBase) UintPtrSlice(d []uintptr) uintptr {
 	if d == nil {
 		return 0
 	}
@@ -66,5 +75,6 @@ func (g2c *Go2CBase) Uint8(d uint) uintptr {
 
 func (g2c *Go2CBase) Chars(d string) uintptr {
 	b := append([]byte(d), 0)
+	log.Println("Chars", b)
 	return uintptr(unsafe.Pointer(&b[0]))
 }
