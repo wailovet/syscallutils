@@ -73,7 +73,12 @@ func (g2c *Go2CBase) Uint8(d uint) uintptr {
 }
 
 func (g2c *Go2CBase) Chars(d string) uintptr {
-	b := append([]byte(d), 0)
+	b := []byte(d)
+	var newByte []byte
+	for i := range b {
+		newByte = append(newByte, b[i])
+	}
+	newByte = append(newByte, 0)
 	// log.Println("Chars", b)
-	return uintptr(unsafe.Pointer(&b[0]))
+	return uintptr(unsafe.Pointer(&newByte[0]))
 }
