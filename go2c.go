@@ -61,6 +61,7 @@ func (g2c *Go2CBase) Float32(d float32) uintptr {
 }
 
 func (g2c *Go2CBase) Float64(d float64) uintptr {
+	// return uintptr(math.Float64bits(d)) //?
 	return uintptr(d)
 }
 
