@@ -97,6 +97,22 @@ func (c2g *C2GoBase) IntSlice(p uintptr, len int) (d []int) {
 	return
 }
 
+func (c2g *C2GoBase) Int64Slice(p uintptr, len int) (d []int64) {
+	for i := 0; i < len; i++ {
+		d = append(d, *(*int64)(unsafe.Pointer(p)))
+		p += unsafe.Sizeof(int64(0)) // 移动指针，指向下一个char
+	}
+	return
+}
+
+func (c2g *C2GoBase) Int32Slice(p uintptr, len int) (d []int32) {
+	for i := 0; i < len; i++ {
+		d = append(d, *(*int32)(unsafe.Pointer(p)))
+		p += unsafe.Sizeof(int32(0)) // 移动指针，指向下一个char
+	}
+	return
+}
+
 func (c2g *C2GoBase) String4CharPtr(p uintptr) string {
 	return string(c2g.Bytes(p))
 }
