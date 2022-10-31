@@ -1,7 +1,11 @@
 package syscallutils
 
+import "C"
+
 import (
 	"unsafe"
+
+	"golang.org/x/sys/windows"
 )
 
 var Go2C Go2CBase
@@ -10,6 +14,10 @@ type Go2CBase struct{}
 
 func (g2c *Go2CBase) AnyPtr(d interface{}) uintptr {
 	return uintptr(unsafe.Pointer(&d))
+}
+
+func (g2c *Go2CBase) Uintptr(d interface{}) uintptr {
+	return d.(uintptr)
 }
 
 func (g2c *Go2CBase) Uint8Slice(d []uint8) uintptr {
@@ -82,4 +90,14 @@ func (g2c *Go2CBase) Chars(d string) uintptr {
 	newByte = append(newByte, 0)
 	// log.Println("Chars", b)
 	return uintptr(unsafe.Pointer(&newByte[0]))
+}
+
+func wcharPtrFromString(s string) (*C.wchar_t, error) {
+	p, err := windows.UTF16PtrFromString(s)
+	return (*C.wchar_t)(p), err
+}
+
+func (g2c *Go2CBase) WChars(d string) uintptr {
+	sp, _ := wcharPtrFromString(d)
+	return uintptr(unsafe.Pointer(&sp))
 }

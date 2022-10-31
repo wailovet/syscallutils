@@ -1,6 +1,12 @@
 package syscallutils
 
-import "unsafe"
+import "C"
+
+import (
+	"unsafe"
+
+	"golang.org/x/sys/windows"
+)
 
 var C2Go C2GoBase
 
@@ -115,4 +121,16 @@ func (c2g *C2GoBase) Int32Slice(p uintptr, len int) (d []int32) {
 
 func (c2g *C2GoBase) String4CharPtr(p uintptr) string {
 	return string(c2g.Bytes(p))
+}
+
+func (c2g *C2GoBase) Bool(p uintptr) bool {
+	return c2g.Uint8(p) != 0
+}
+
+func wcharPtrToString(p *C.wchar_t) string {
+	return windows.UTF16PtrToString((*uint16)(p))
+}
+
+func (c2g *C2GoBase) String4WCharPtr(p uintptr) string {
+	return wcharPtrToString((*C.wchar_t)(unsafe.Pointer(p)))
 }
